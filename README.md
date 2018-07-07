@@ -16,9 +16,9 @@ Overview
 
 ## Contribution
 
-## Licence
+## License
 
-[MIT]()
+[MIT](https://github.com/upura/happy.birthday.ga/blob/master/LICENSE)
 
 ## Author
 
