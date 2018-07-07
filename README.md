@@ -1,20 +1,15 @@
 Happy Birthday by Genetic Algorithm
 ===
-Overview
-
-## Description
+A tool for printing 'Happy Birthday, (Your name)!' using genetic algorithm.
 
 ## Demo
 
-## VS. 
-
 ## Requirement
+- Python 3.x
+    - numpy
 
 ## Usage
 
-## Install
-
-## Contribution
 
 ## License
 
