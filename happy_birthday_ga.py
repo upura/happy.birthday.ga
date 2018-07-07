@@ -16,7 +16,7 @@ def get_sentence(string_candidate):
     return created_sentence
 
 def evaluation_function(sentence):
-    judgment = [True if i == j else False for i, j in zip(OBJECTIVE_SENTENCE, sentence)]
+    judgment = [i == j for i, j in zip(OBJECTIVE_SENTENCE, sentence)]
     evaluation = sum(judgment) / len(judgment)
     return evaluation
 
