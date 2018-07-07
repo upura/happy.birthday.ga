@@ -1,10 +1,15 @@
 import string
 import random
 import numpy as np
+import sys
 
 
-USER_NAME = 'upura'
-OBJECTIVE_SENTENCE = 'happy birthday' + ' ' + USER_NAME
+try:
+    USER_NAME = sys.argv[1]
+except:
+    USER_NAME = 'upura'
+
+OBJECTIVE_SENTENCE = 'Happy birthday, ' + USER_NAME + '!'
 AGENT_NUM = 1000
 GENETIC_OPERATORS = []
 CROSSOVER_PROB = 0.1
@@ -14,8 +19,11 @@ GENETIC_OPERATORS_WEIGHT = \
     [CROSSOVER_PROB, MUTATION_PROB, 1 - (CROSSOVER_PROB + MUTATION_PROB)]
 
 def get_string_candidate():
-    string_candidate = [chr(i) for i in range(97, 97 + 26)]
+    string_candidate = \
+        [chr(i) for i in range(97, 97 + 26)] + [chr(i) for i in range(65, 65 + 26)]    
     string_candidate.append(' ')
+    string_candidate.append(',')
+    string_candidate.append('!')
     return string_candidate
 
 def get_sentence(string_candidate, sentence_length):
