@@ -17,7 +17,7 @@ class TestGetObjectiveSentence(unittest.TestCase):
         expected = get_objective_sentence()
         actual = 'Happy birthday, Shinzo Abe!'
         self.assertEqual(expected, actual)
-        del sys.argv[1:]
+        del sys.argv[1]
 
     # User name is given (Not a string)
     def test_success_get_not_string(self):
@@ -25,7 +25,7 @@ class TestGetObjectiveSentence(unittest.TestCase):
         expected = get_objective_sentence()
         actual = 'Happy birthday, 111!'
         self.assertEqual(expected, actual)
-        del sys.argv[1:]
+        del sys.argv[1]
 
 if __name__ == "__main__":
     unittest.main()
