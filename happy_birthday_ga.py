@@ -4,19 +4,21 @@ import numpy as np
 import sys
 
 
-try:
-    USER_NAME = sys.argv[1]
-except:
-    USER_NAME = 'upura'
-
-OBJECTIVE_SENTENCE = 'Happy birthday, ' + USER_NAME + '!'
 AGENT_NUM = 1000
-GENETIC_OPERATORS = []
 CROSSOVER_PROB = 0.1
 MUTATION_PROB = 0.1
 GENETIC_OPERATORS = ['CROSSOVER', 'MUTATION', 'REPRODUCTION']
 GENETIC_OPERATORS_WEIGHT = \
     [CROSSOVER_PROB, MUTATION_PROB, 1 - (CROSSOVER_PROB + MUTATION_PROB)]
+
+def get_objective_sentence():
+    try:
+        USER_NAME = sys.argv[1]
+    except:
+        USER_NAME = 'upura'
+
+    objective_sentence = 'Happy birthday, ' + str(USER_NAME) + '!'
+    return objective_sentence
 
 def get_string_candidate():
     string_candidate = \
@@ -30,8 +32,8 @@ def get_sentence(string_candidate, sentence_length):
     created_sentence = random.choices(string_candidate, k = sentence_length)
     return created_sentence
 
-def get_fitness(sentence):
-    judgment = [i == j for i, j in zip(OBJECTIVE_SENTENCE, sentence)]
+def get_fitness(objective_sentence, sentence):
+    judgment = [i == j for i, j in zip(objective_sentence, sentence)]
     evaluation = sum(judgment) / len(judgment)
     return evaluation
 
@@ -46,7 +48,7 @@ def fitness_proportionate_selection(agents, evaluations):
 def crossover(agents, evaluations):
     father_agent = fitness_proportionate_selection(agents, evaluations)
     mother_agent = fitness_proportionate_selection(agents, evaluations)
-    crossover_points = random.sample(list(np.arange(len(OBJECTIVE_SENTENCE) - 1)), 2)
+    crossover_points = random.sample(list(np.arange(len(father_agent) - 1)), 2)
     next_agent = father_agent[:min(crossover_points)] \
         + mother_agent[min(crossover_points):max(crossover_points)] \
         + father_agent[max(crossover_points):]
@@ -76,15 +78,16 @@ def create_next_generation(agents, evaluations, string_candidate):
     return next_agents
 
 if __name__ == '__main__':
+    objective_sentence = get_objective_sentence()
     string_candidate = get_string_candidate()
-    agents = [get_sentence(string_candidate, len(OBJECTIVE_SENTENCE)) for i in range(AGENT_NUM)]
-    evaluations = [get_fitness(agents[i]) for i in range(AGENT_NUM)]
+    agents = [get_sentence(string_candidate, len(objective_sentence)) for i in range(AGENT_NUM)]
+    evaluations = [get_fitness(objective_sentence, agents[i]) for i in range(AGENT_NUM)]
     generation_id = 0
 
     while max(evaluations) < 1:
         generation_id += 1
         agents = create_next_generation(agents, evaluations, string_candidate)
-        evaluations = [get_fitness(agents[i]) for i in range(AGENT_NUM)]
+        evaluations = [get_fitness(objective_sentence, agents[i]) for i in range(AGENT_NUM)]
         print('===GENERATION ' + str(generation_id) + '===')
         print(''.join(agents[np.argmax(evaluations)]))
         print('max_fitness: ' + str(max(evaluations)))
