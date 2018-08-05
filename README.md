@@ -9,6 +9,9 @@ A tool for printing 'Happy Birthday, (Your name)!' using genetic algorithm.
 ### Final Output
 ![final](https://github.com/upura/happy.birthday.ga/blob/master/demo/final.png)
 
+Japanese blog can be seen from the following link:  
+https://upura.hatenablog.com/entry/happy-birthday-to-me
+
 ## Requirement
 - Python 3.x
     - numpy
